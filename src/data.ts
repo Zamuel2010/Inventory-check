@@ -1,0 +1,160 @@
+import { Product } from './types';
+
+const CATEGORY_IMAGES: Record<Product['category'], string> = {
+  'Noodles & Grains': 'https://images.unsplash.com/photo-1612929633738-8fe44f7ec841?auto=format&fit=crop&w=600&q=80',
+  'Tomatoes & Spices': 'https://images.unsplash.com/photo-1592924357228-91a4daadcfea?auto=format&fit=crop&w=600&q=80',
+  'Oil & Butter': 'https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?auto=format&fit=crop&w=600&q=80',
+  'Beverages & Milk': 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?auto=format&fit=crop&w=600&q=80',
+  'Snacks & Sweets': 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=600&q=80'
+};
+
+const RAW_GOODS = [
+  // --- PAGE 1 ---
+  { name: "Mimi 70g", cost_price: 7450, selling_price: 7800, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Mimi 100g", cost_price: 10150, selling_price: 10500, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Spaghetti Min", cost_price: 18200, selling_price: 9500, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Spaghetti Fat", cost_price: 18200, selling_price: 9500, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Semovita 10kg", cost_price: 14300, selling_price: 14800, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Semovita 500g", cost_price: 14750, selling_price: 800, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Mama Gold 5kg", cost_price: 7050, selling_price: 7400, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Semovita 5kg", cost_price: 7250, selling_price: 7600, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Mama Gold 1kg", cost_price: 14300, selling_price: 1500, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Gino tomato", cost_price: 7350, selling_price: 800, page: "Page 1", cat: "Tomatoes & Spices" },
+  { name: "Power oil", cost_price: 15800, selling_price: 1400, page: "Page 1", cat: "Oil & Butter" },
+  { name: "Sonia tomato", cost_price: 7300, selling_price: 800, page: "Page 1", cat: "Tomatoes & Spices" },
+  { name: "Chicken Flavor 80g", cost_price: 24000, selling_price: 350, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Chicken Flavor by 25", cost_price: 2900, selling_price: 1550, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Salt by 20", cost_price: 7850, selling_price: 450, page: "Page 1", cat: "Tomatoes & Spices" },
+  { name: "Salt by 80", cost_price: 8400, selling_price: 120, page: "Page 1", cat: "Tomatoes & Spices" },
+  { name: "Sugar 500g", cost_price: 14000, selling_price: 450, page: "Page 1", cat: "Snacks & Sweets" },
+  { name: "Sugar", cost_price: 14000, selling_price: 800, page: "Page 1", cat: "Snacks & Sweets" },
+  { name: "Chicken Flavor Powder 400g", cost_price: 19500, selling_price: 1900, page: "Page 1", cat: "Tomatoes & Spices" },
+  { name: "Chicken Flavor Powder 25g", cost_price: 22000, selling_price: 1100, page: "Page 1", cat: "Tomatoes & Spices" },
+  { name: "Sardine 1kg", cost_price: 14700, selling_price: 1500, page: "Page 1", cat: "Tomatoes & Spices" },
+  { name: "Hot pepper", cost_price: 5950, selling_price: 500, page: "Page 1", cat: "Tomatoes & Spices" },
+  { name: "Bama sachet", cost_price: 12000, selling_price: 800, page: "Page 1", cat: "Oil & Butter" },
+  { name: "Bonvita by 20 sachet", cost_price: 33000, selling_price: 1800, page: "Page 1", cat: "Beverages & Milk" },
+  { name: "Milo sachet", cost_price: 34500, selling_price: 1800, page: "Page 1", cat: "Beverages & Milk" },
+  { name: "Crown Spaghetti", cost_price: 17350, selling_price: 900, page: "Page 1", cat: "Noodles & Grains" },
+  { name: "Tiger Masala", cost_price: 9700, selling_price: 500, page: "Page 1", cat: "Tomatoes & Spices" },
+  { name: "Hollandia 120g x24", cost_price: 11400, selling_price: 2900, page: "Page 1", cat: "Beverages & Milk" },
+  { name: "Hollandia pop 50g x 48", cost_price: 10100, selling_price: 1800, page: "Page 1", cat: "Beverages & Milk" },
+  { name: "Three Crowns Sachet", cost_price: 24300, selling_price: 1300, page: "Page 1", cat: "Beverages & Milk" },
+  { name: "Golden Morn 900g", cost_price: 24000, selling_price: 4200, page: "Page 1", cat: "Beverages & Milk" },
+  { name: "Amazing Day", cost_price: 17300, selling_price: 2000, page: "Page 1", cat: "Beverages & Milk" },
+  { name: "Tomtom", cost_price: 21000, selling_price: 900, page: "Page 1", cat: "Snacks & Sweets" },
+  { name: "Buttermint", cost_price: 17300, selling_price: 800, page: "Page 1", cat: "Snacks & Sweets" },
+  { name: "Dangote Sugar", cost_price: 14000, selling_price: 450, page: "Page 1", cat: "Snacks & Sweets" },
+  { name: "Dano Milk", cost_price: 3050, selling_price: 1200, page: "Page 1", cat: "Beverages & Milk" },
+  { name: "Peak Milk", cost_price: 34000, selling_price: 1800, page: "Page 1", cat: "Beverages & Milk" },
+
+  // --- PAGE 2 ---
+  { name: "Golden Penny Butter 450g", cost_price: 14500, selling_price: 1300, page: "Page 2", cat: "Oil & Butter" },
+  { name: "Golden Penny Butter 250g", cost_price: 18400, selling_price: 850, page: "Page 2", cat: "Oil & Butter" },
+  { name: "Coco Pops", cost_price: 20000, selling_price: 1400, page: "Page 2", cat: "Beverages & Milk" },
+  { name: "Derica Tomato", cost_price: 7350, selling_price: 800, page: "Page 2", cat: "Tomatoes & Spices" },
+  { name: "Tasty Tom", cost_price: 7200, selling_price: 800, page: "Page 2", cat: "Tomatoes & Spices" },
+  { name: "Jumbo Tomato", cost_price: 5900, selling_price: 650, page: "Page 2", cat: "Tomatoes & Spices" },
+  { name: "Golden Penny Wheat 1kg", cost_price: 11200, selling_price: 1200, page: "Page 2", cat: "Noodles & Grains" },
+  { name: "Golden Penny Wheat 5kg", cost_price: 5500, selling_price: 6000, page: "Page 2", cat: "Noodles & Grains" },
+  { name: "Peak", cost_price: 16200, selling_price: 2100, page: "Page 2", cat: "Beverages & Milk" },
+  { name: "Crown", cost_price: 16000, selling_price: 2100, page: "Page 2", cat: "Beverages & Milk" },
+  { name: "Dano Refill", cost_price: 33500, selling_price: 3000, page: "Page 2", cat: "Beverages & Milk" },
+  { name: "Chivita", cost_price: 3200, selling_price: 3500, page: "Page 2", cat: "Beverages & Milk" },
+  { name: "Fresh-yo", cost_price: 3000, selling_price: 3300, page: "Page 2", cat: "Beverages & Milk" },
+  { name: "Party Jollof roll", cost_price: 8500, selling_price: 950, page: "Page 2", cat: "Noodles & Grains" },
+  { name: "Party Jollof big roll", cost_price: 17200, selling_price: 1200, page: "Page 2", cat: "Noodles & Grains" },
+  { name: "Activa oil", cost_price: 14100, selling_price: 1200, page: "Page 2", cat: "Oil & Butter" },
+  { name: "Spicy Jollof", cost_price: 15300, selling_price: 700, page: "Page 2", cat: "Noodles & Grains" },
+  { name: "Fried Rice", cost_price: 15300, selling_price: 700, page: "Page 2", cat: "Noodles & Grains" },
+  { name: "Steep-on Chin Chin 1/2 bag", cost_price: 17500, selling_price: 1200, page: "Page 2", cat: "Snacks & Sweets" },
+  { name: "3 in 1 Milo", cost_price: 36000, selling_price: 2600, page: "Page 2", cat: "Beverages & Milk" },
+  { name: "Sweet Corn Big 6 pieces", cost_price: 6750, selling_price: 1250, page: "Page 2", cat: "Noodles & Grains" },
+  { name: "Sweet Corn Small 12 pieces", cost_price: 5850, selling_price: 600, page: "Page 2", cat: "Noodles & Grains" },
+  { name: "Festin Tomato 5 carton", cost_price: 5700, selling_price: 600, page: "Page 2", cat: "Tomatoes & Spices" },
+  { name: "Butter Roll 1 carton", cost_price: 10600, selling_price: 650, page: "Page 2", cat: "Oil & Butter" },
+  { name: "Treegells 2 pack", cost_price: 2600, selling_price: 2800, page: "Page 2", cat: "Snacks & Sweets" },
+  { name: "Beloxxi 4 carton", cost_price: 3200, selling_price: 3300, page: "Page 2", cat: "Snacks & Sweets" },
+  { name: "Maggi Crayfish Small 1/2 carton", cost_price: 28200, selling_price: 1250, page: "Page 2", cat: "Tomatoes & Spices" },
+  { name: "Maggi Crayfish Big 1/2 carton", cost_price: 28200, selling_price: 2500, page: "Page 2", cat: "Tomatoes & Spices" },
+  { name: "Kremela 2 carton", cost_price: 16300, selling_price: 850, page: "Page 2", cat: "Beverages & Milk" },
+  { name: "Checkers (P) 1 carton", cost_price: 7000, selling_price: 1200, page: "Page 2", cat: "Beverages & Milk" },
+  { name: "Cowbell Choco 1 carton", cost_price: 28400, selling_price: 1500, page: "Page 2", cat: "Beverages & Milk" },
+  { name: "Milo 400g 1/2", cost_price: 17000, selling_price: 3500, page: "Page 2", cat: "Beverages & Milk" },
+  { name: "Good Time 1 carton", cost_price: 15000, selling_price: 800, page: "Page 2", cat: "Snacks & Sweets" },
+  { name: "Honey Chin Chin 1 bag", cost_price: 17250, selling_price: 1200, page: "Page 2", cat: "Snacks & Sweets" },
+
+  // --- PAGE 3 ---
+  { name: "Center Fruit", cost_price: 1900, selling_price: 2100, page: "Page 3", cat: "Snacks & Sweets" },
+  { name: "Freegells", cost_price: 2600, selling_price: 2800, page: "Page 3", cat: "Snacks & Sweets" },
+  { name: "Bulbs", cost_price: 500, selling_price: 600, page: "Page 3", cat: "Snacks & Sweets" },
+  { name: "Banana Mr Fruit", cost_price: 2000, selling_price: 2200, page: "Page 3", cat: "Snacks & Sweets" },
+  { name: "Chicken Flavor by 100", cost_price: 14500, selling_price: 1600, page: "Page 3", cat: "Noodles & Grains" },
+  { name: "Auty B Spag", cost_price: 14200, selling_price: 750, page: "Page 3", cat: "Noodles & Grains" },
+  { name: "Bama Cup", cost_price: 16600, selling_price: 1500, page: "Page 3", cat: "Oil & Butter" },
+  { name: "Titus by 10", cost_price: 13900, selling_price: 1500, page: "Page 3", cat: "Tomatoes & Spices" },
+  { name: "Choco Chin Chin", cost_price: 7800, selling_price: 700, page: "Page 3", cat: "Snacks & Sweets" },
+  { name: "Supper Bite", cost_price: 4000, selling_price: 700, page: "Page 3", cat: "Snacks & Sweets" },
+  { name: "Aunty B Semo 10kg", cost_price: 11700, selling_price: 12000, page: "Page 3", cat: "Noodles & Grains" },
+  { name: "Custard 1 carton", cost_price: 13100, selling_price: 1200, page: "Page 3", cat: "Beverages & Milk" },
+  { name: "Homa Chips", cost_price: 2300, selling_price: 0, page: "Page 3", cat: "Snacks & Sweets" },
+  { name: "Chess Ball", cost_price: 2300, selling_price: 450, page: "Page 3", cat: "Snacks & Sweets" },
+  { name: "Caramel Popcorn", cost_price: 1550, selling_price: 1600, page: "Page 3", cat: "Snacks & Sweets" },
+  { name: "Popcorn", cost_price: 2150, selling_price: 550, page: "Page 3", cat: "Snacks & Sweets" },
+  { name: "Golden Morn", cost_price: 22800, selling_price: 2500, page: "Page 3", cat: "Beverages & Milk" },
+  { name: "Knorr Chicken 1 carton", cost_price: 29000, selling_price: 3150, page: "Page 3", cat: "Tomatoes & Spices" },
+  { name: "Indometable", cost_price: 9300, selling_price: 9700, page: "Page 3", cat: "Noodles & Grains" },
+  { name: "Spagethy", cost_price: 18300, selling_price: 950, page: "Page 3", cat: "Noodles & Grains" },
+  { name: "Chicken Flavor 1kg", cost_price: 38700, selling_price: 3400, page: "Page 3", cat: "Tomatoes & Spices" },
+  { name: "Knorr Chicken Small", cost_price: 28100, selling_price: 0, page: "Page 3", cat: "Tomatoes & Spices" },
+  { name: "Sonia 1kg Pouches", cost_price: 29000, selling_price: 2600, page: "Page 3", cat: "Tomatoes & Spices" },
+  { name: "Auntie B Semo 5kg", cost_price: 5850, selling_price: 6500, page: "Page 3", cat: "Noodles & Grains" },
+  { name: "Milo", cost_price: 35100, selling_price: 1800, page: "Page 3", cat: "Beverages & Milk" },
+  { name: "Party Jollof 1 roll", cost_price: 3400, selling_price: 3800, page: "Page 3", cat: "Noodles & Grains" },
+  { name: "Festin Tomato", cost_price: 5700, selling_price: 600, page: "Page 3", cat: "Tomatoes & Spices" },
+  { name: "Gino Tomato", cost_price: 7400, selling_price: 0, page: "Page 3", cat: "Tomatoes & Spices" },
+  { name: "Party Jollof", cost_price: 8500, selling_price: 0, page: "Page 3", cat: "Noodles & Grains" },
+  { name: "Goldpenny Macaroni", cost_price: 18350, selling_price: 0, page: "Page 3", cat: "Noodles & Grains" },
+  { name: "Sweet Corn", cost_price: 11700, selling_price: 0, page: "Page 3", cat: "Noodles & Grains" },
+  { name: "Amazing Day", cost_price: 17300, selling_price: 0, page: "Page 3", cat: "Beverages & Milk" },
+  { name: "Family Choco", cost_price: 10300, selling_price: 0, page: "Page 3", cat: "Beverages & Milk" },
+  { name: "Sugar", cost_price: 14700, selling_price: 0, page: "Page 3", cat: "Snacks & Sweets" },
+  { name: "Cremella", cost_price: 0, selling_price: 0, page: "Page 3", cat: "Beverages & Milk" },
+  { name: "Dano Milk", cost_price: 31700, selling_price: 0, page: "Page 3", cat: "Beverages & Milk" },
+
+  // --- PAGE 4 ---
+  { name: "Gino Big", cost_price: 33500, selling_price: 0, page: "Page 4", cat: "Tomatoes & Spices" },
+  { name: "Plaza Big", cost_price: 23500, selling_price: 0, page: "Page 4", cat: "Tomatoes & Spices" },
+  { name: "Plaza Small", cost_price: 23000, selling_price: 0, page: "Page 4", cat: "Tomatoes & Spices" },
+  { name: "Biggi Custard Small", cost_price: 7750, selling_price: 2100, page: "Page 4", cat: "Beverages & Milk" },
+  { name: "Checkers 3 in 1 Custard", cost_price: 6800, selling_price: 1300, page: "Page 4", cat: "Beverages & Milk" },
+  { name: "Nescafe 3 in 1", cost_price: 34800, selling_price: 0, page: "Page 4", cat: "Beverages & Milk" },
+  { name: "Milo", cost_price: 34800, selling_price: 0, page: "Page 4", cat: "Beverages & Milk" },
+  { name: "Lipton", cost_price: 13600, selling_price: 700, page: "Page 4", cat: "Beverages & Milk" },
+  { name: "Top Tea", cost_price: 12000, selling_price: 600, page: "Page 4", cat: "Beverages & Milk" },
+  { name: "Checkers Roll", cost_price: 8900, selling_price: 1200, page: "Page 4", cat: "Beverages & Milk" },
+  { name: "Loya Milk", cost_price: 31200, selling_price: 1700, page: "Page 4", cat: "Beverages & Milk" },
+  { name: "Cornflakes", cost_price: 18500, selling_price: 1400, page: "Page 4", cat: "Beverages & Milk" }
+] as const;
+
+export const WHOLESALE_PRODUCTS: Product[] = RAW_GOODS.map((item, idx) => ({
+  id: `good-${idx + 1}`,
+  name: item.name,
+  cost_price: item.cost_price,
+  selling_price: item.selling_price,
+  category: item.cat as Product['category'],
+  page: item.page,
+  imageUrl: CATEGORY_IMAGES[item.cat as Product['category']],
+  notes: item.selling_price === 0 ? 'No selling price listed' : undefined
+}));
+
+export function searchProductsByName(query: string): Product[] {
+  if (!query.trim()) return WHOLESALE_PRODUCTS;
+  const clean = query.trim().toLowerCase();
+  return WHOLESALE_PRODUCTS.filter(p => p.name.toLowerCase().includes(clean));
+}
+
+export function getExactProductByName(name: string): Product | undefined {
+  const clean = name.trim().toLowerCase();
+  return WHOLESALE_PRODUCTS.find(p => p.name.toLowerCase() === clean);
+}

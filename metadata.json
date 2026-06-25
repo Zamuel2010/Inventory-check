@@ -1,0 +1,8 @@
+{
+  "name": "Princess Daniella Store",
+  "description": "An elegant price and inventory checker to search goods by name, view wholesale cost vs retail selling price, and build order manifests.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

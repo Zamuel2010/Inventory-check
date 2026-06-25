@@ -1,0 +1,156 @@
+{
+  "entities": {
+    "Debt": {
+      "title": "Debt Record",
+      "description": "Represents a debt entry in the store ledger containing the customer name and amount owed.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier of the debt record"
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Name of the person who owes the debt"
+        },
+        "amount": {
+          "type": "number",
+          "description": "The amount of money owed in Naira (₦)"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional notes or details about the debt"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the debt record was created"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the debt record was last updated"
+        }
+      },
+      "required": ["id", "customerName", "amount", "createdAt", "updatedAt"]
+    },
+    "Product": {
+      "title": "Store Product",
+      "description": "Represents a physical store product synced in Firestore.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique catalog product identifier"
+        },
+        "name": {
+          "type": "string",
+          "description": "Name of the good/item"
+        },
+        "cost_price": {
+          "type": "number",
+          "description": "Wholesale cost price of the item"
+        },
+        "selling_price": {
+          "type": "number",
+          "description": "Retail selling price of the item"
+        },
+        "category": {
+          "type": "string",
+          "description": "Item category or department"
+        },
+        "page": {
+          "type": "string",
+          "description": "Page or book classification"
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL to the product thumbnail image"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the product was updated"
+        }
+      },
+      "required": ["id", "name", "cost_price", "selling_price", "category", "page", "imageUrl", "updatedAt"]
+    },
+    "Invoice": {
+      "title": "Digital Invoice",
+      "description": "Represents a digitized sales invoice containing detailed transaction items, totals, and payment status.",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique invoice identifier"
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Name of the customer"
+        },
+        "items": {
+          "type": "array",
+          "description": "The list of items sold in this transaction"
+        },
+        "totalCost": {
+          "type": "number",
+          "description": "Total cost price of items in Naira"
+        },
+        "totalSelling": {
+          "type": "number",
+          "description": "Total selling price of items in Naira"
+        },
+        "totalProfit": {
+          "type": "number",
+          "description": "Net profit made from this invoice"
+        },
+        "amountPaid": {
+          "type": "number",
+          "description": "The amount the customer paid at checkout"
+        },
+        "paymentStatus": {
+          "type": "string",
+          "description": "Payment status of the invoice",
+          "enum": ["fully_paid", "unpaid", "partial_paid"]
+        },
+        "notes": {
+          "type": "string",
+          "description": "Optional notes or comments on this invoice"
+        },
+        "shopName": {
+          "type": "string",
+          "description": "Optional custom shop name printed on the invoice"
+        },
+        "shopPhone": {
+          "type": "string",
+          "description": "Optional custom telephone number printed on the invoice"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the invoice was generated"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp when the invoice was last modified"
+        }
+      },
+      "required": ["id", "customerName", "items", "totalCost", "totalSelling", "totalProfit", "amountPaid", "paymentStatus", "createdAt", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/stores/{storeId}/debts/{debtId}": {
+      "schema": "Debt",
+      "description": "Debts collection sub-resource within a specific store account"
+    },
+    "/stores/{storeId}/invoices/{invoiceId}": {
+      "schema": "Invoice",
+      "description": "Historical sales invoices collection sub-resource for a store account"
+    },
+    "/stores/{storeId}/products/{productId}": {
+      "schema": "Product",
+      "description": "Custom products list for a specific store account"
+    }
+  }
+}

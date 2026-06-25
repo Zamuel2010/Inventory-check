@@ -1,0 +1,89 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Global default-deny safety net
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Common helper functions
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // Validation helpers
+    function isValidDebt(data) {
+      return data.keys().hasAll(['id', 'customerName', 'amount', 'createdAt', 'updatedAt'])
+        && data.id is string && data.id.size() <= 128
+        && data.customerName is string && data.customerName.size() <= 100 && data.customerName.size() > 0
+        && (data.amount is number || data.amount is int) && data.amount >= 0
+        && (!('notes' in data) || (data.notes is string && data.notes.size() <= 1000))
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidProduct(data) {
+      return data.keys().hasAll(['id', 'name', 'cost_price', 'selling_price', 'category', 'page', 'imageUrl', 'updatedAt'])
+        && data.id is string && data.id.size() <= 128
+        && data.name is string && data.name.size() <= 200 && data.name.size() > 0
+        && (data.cost_price is number || data.cost_price is int) && data.cost_price >= 0
+        && (data.selling_price is number || data.selling_price is int) && data.selling_price >= 0
+        && data.category is string && data.category.size() <= 100
+        && data.page is string && data.page.size() <= 100
+        && data.imageUrl is string && data.imageUrl.size() <= 2000
+        && data.updatedAt is timestamp;
+    }
+
+    function isValidInvoice(data) {
+      return data.keys().hasAll(['id', 'customerName', 'items', 'totalCost', 'totalSelling', 'totalProfit', 'amountPaid', 'paymentStatus', 'createdAt', 'updatedAt'])
+        && data.id is string && data.id.size() <= 128
+        && data.customerName is string && data.customerName.size() <= 100
+        && data.items is list
+        && (data.totalCost is number || data.totalCost is int)
+        && (data.totalSelling is number || data.totalSelling is int)
+        && (data.totalProfit is number || data.totalProfit is int)
+        && (data.amountPaid is number || data.amountPaid is int)
+        && data.paymentStatus is string && data.paymentStatus.size() <= 50
+        && (!('notes' in data) || (data.notes is string && data.notes.size() <= 1000))
+        && (!('shopName' in data) || (data.shopName is string && data.shopName.size() <= 150))
+        && (!('shopPhone' in data) || (data.shopPhone is string && data.shopPhone.size() <= 50))
+        && data.createdAt is timestamp
+        && data.updatedAt is timestamp;
+    }
+
+    // Match path rules
+    match /stores/{storeId} {
+      allow read, write: if isValidId(storeId);
+
+      match /debts/{debtId} {
+        allow get: if isValidId(storeId) && isValidId(debtId);
+        allow list: if isValidId(storeId);
+        
+        allow create, update, delete: if isValidId(storeId);
+      }
+
+      match /invoices/{invoiceId} {
+        allow get: if isValidId(storeId) && isValidId(invoiceId);
+        allow list: if isValidId(storeId);
+
+        allow create, update, delete: if isValidId(storeId);
+      }
+
+      match /products/{productId} {
+        allow get: if isValidId(storeId) && isValidId(productId);
+        allow list: if isValidId(storeId);
+
+        allow create, update, delete: if isValidId(storeId);
+      }
+    }
+  }
+}
